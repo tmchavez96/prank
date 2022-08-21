@@ -1,4 +1,14 @@
 
+function toggleGlow(){
+    let elm = document.getElementById("spooky--image");
+    var toggle = false;
+    
+    setInterval(()=>{
+        toggle = !toggle;
+        elm.style.opacity = toggle ? '0.0' : '0.1';
+    } ,1500);
+}
+
 function animText(container, text){
     console.log('in method')
     console.log(text);
@@ -22,9 +32,10 @@ function writeChar(cont, char){
 }
 
 function main() {
+    toggleGlow();
     console.log("started onload");
     let header = document.getElementById("form--label");
-    let russianSpook = "Бидејќи непочитува ето и омаловажувањето на човековите права";
+    let russianSpook = "Вы были активированы";
     let activation = "You have been activated. Enter activation code."
     animText(header, russianSpook);
     setTimeout( () =>{
@@ -37,7 +48,7 @@ function main() {
 
 function sendInsructions(){
     let fb = document.getElementById("feedback");
-    animText(fb, "Excellent. Await Further instrcutions...");
+    animText(fb, "Excellent. Await Further <br> instrcutions...");
 }
 
 window.onload = main;

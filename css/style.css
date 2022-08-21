@@ -13,7 +13,7 @@ body{
 }
 
 .sub--container{
-    font-size: 25px;
+    font-size: 30px;
     background-color: black;
     padding: 20px;
 }
@@ -49,6 +49,8 @@ body{
     width: 100%;
     height: 100vh;
     z-index: -1;
-    opacity: .2;
-    background-image: url("../images/Trollface_non-free.png");
+    opacity: .1;
+    background-image: url("../images/troll.jpg");
+    transition: 1.5s;
 }
+
