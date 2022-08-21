@@ -9,6 +9,87 @@ function toggleGlow(){
     } ,1500);
 }
 
+
+function removePx(str){
+    var cleaned = str.slice(0, -2);
+    return parseInt(cleaned);
+}
+
+let seekers = document.getElementsByClassName('troll--seeker');
+
+function addTroll() {
+    // create a new div element
+    const newDiv = document.createElement("div");
+    newDiv.className = "troll--seeker";
+    
+    let main = document.getElementById("main--container");
+    document.body.insertBefore(newDiv, main);
+}
+
+
+function initSeekers(){
+    var k = 0;
+    while(k < 20){
+        addTroll();
+        k++;
+    }
+
+    for(var i = 0; i < seekers.length; i++){
+        let cur = seekers[i];
+        initSeeker(cur);
+    }
+}
+
+function moveSeekers(){
+    for(var i = 0; i < seekers.length; i++){
+        let cur = seekers[i];
+        moveSeeker(cur);
+        correvtVelocity(cur);
+    }
+}
+
+function getRandomInt(max) {
+    var retVal = Math.floor(Math.random() * max);
+    while(retVal == 0){
+        retVal = Math.floor(Math.random() * max);
+    }
+    return retVal
+}
+
+function initSeeker(seeker){
+    seeker.dataset.xVelocity = getRandomInt(4);
+    seeker.dataset.yVelocity = getRandomInt(4);
+    seeker.style.top = "1px";
+    seeker.style.left = "2px";
+}
+
+function moveSeeker(seeker){
+    let xVol = seeker.dataset.xVelocity;
+    let yVol = seeker.dataset.yVelocity;
+    var top = removePx(seeker.style.top);
+    var left = removePx(seeker.style.left);
+
+    seeker.style.top = `${top + parseInt(yVol)}px`;
+    seeker.style.left = `${left + parseInt(xVol)}px`;
+}
+
+function correvtVelocity(seeker){
+    var top = removePx(seeker.style.top);
+    var left = removePx(seeker.style.left);
+    var maxWidth = window.innerWidth;
+    var maxHeight = window.innerHeight
+
+    let xVol = seeker.dataset.xVelocity;
+    let yVol = seeker.dataset.yVelocity;
+    
+    if(top <= 0 || top >= maxHeight){
+        seeker.dataset.yVelocity = (parseInt(yVol) * -1);
+    }   
+    if(left <= 0 || left >= maxWidth){
+        seeker.dataset.xVelocity = (parseInt(xVol) * -1);
+    }   
+}
+
 function animText(container, text){
     console.log('in method')
     console.log(text);
@@ -17,9 +98,7 @@ function animText(container, text){
     container.innerHTML = "";
     var timeConst = 10;
     for(var i = 0; i < text.length; i++){
-        console.log("in loop")
         var curChar = text.charAt(i);
-        console.log(curChar);
         if(i % 30 == 0){
             setTimeout(writeChar.bind(null, container, '<br>'), i * timeConst);
         }
@@ -33,6 +112,9 @@ function writeChar(cont, char){
 
 function main() {
     toggleGlow();
+    initSeekers();
+    //moveSeekers();
+    setInterval(moveSeekers, 6);
     console.log("started onload");
     let header = document.getElementById("form--label");
     let russianSpook = "Вы были активированы";
@@ -48,7 +130,9 @@ function main() {
 
 function sendInsructions(){
     let fb = document.getElementById("feedback");
-    animText(fb, "Excellent. Await Further <br> instrcutions...");
+    animText(fb, "Excellent. Await Further instrcutions...");
 }
+
+
 
 window.onload = main;

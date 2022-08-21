@@ -54,3 +54,20 @@ body{
     transition: 1.5s;
 }
 
+.troll--seeker{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 80px;
+    height: 80px;
+    background-image: url("../images/Trollface_non-free.png");
+    background-repeat: no-repeat;
+    background-size: 80px 80px;
+    animation: spin 4s linear infinite;
+    opacity: 0.5;
+    z-index: -1;
+}
+
+@keyframes spin {
+    100% { transform: rotate(360deg); } 
+}
