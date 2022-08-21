@@ -15,7 +15,6 @@ function removePx(str){
     return parseInt(cleaned);
 }
 
-let seekers = document.getElementsByClassName('troll--seeker');
 
 function addTroll() {
     // create a new div element
@@ -24,15 +23,19 @@ function addTroll() {
     
     let main = document.getElementById("main--container");
     document.body.insertBefore(newDiv, main);
+
+    initSeeker(newDiv);
 }
 
 
 function initSeekers(){
+    const timeDiff = 10;
     var k = 0;
-    while(k < 20){
-        addTroll();
+    while(k < 12){
+        addTroll()
         k++;
     }
+
 
     for(var i = 0; i < seekers.length; i++){
         let cur = seekers[i];
@@ -40,7 +43,20 @@ function initSeekers(){
     }
 }
 
+var moveCount = 0;
+var trollCount = 0;
 function moveSeekers(){
+    moveCount++;
+    if(moveCount % 100 == 0){
+        if(trollCount < 20){
+             addTroll();
+        }
+        trollCount++;
+    }
+    if(moveCount > 10000000){
+        moveCount = 0;
+    }
+    let seekers = document.getElementsByClassName('troll--seeker');
     for(var i = 0; i < seekers.length; i++){
         let cur = seekers[i];
         moveSeeker(cur);
@@ -112,7 +128,7 @@ function writeChar(cont, char){
 
 function main() {
     toggleGlow();
-    initSeekers();
+    //initSeekers();
     //moveSeekers();
     setInterval(moveSeekers, 6);
     console.log("started onload");
